@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Monedas</title>
+    <link rel="stylesheet" href="assets/CSS/normalize.css">
+    <link rel="stylesheet" href="assets/CSS/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <h1>Conversor de Monedas Nacional</h1>
+    <div class="container">
+        <h2>Pesos CLP</h2>
+        <input inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" maxlength="15">
+        <h3>Moneda a convertir:</h3>
+        <select name="moneda" id="moneda">
+            <option>Dolar</option>
+            <option>Euro</option>
+        </select>
+        <button>Buscar</button>
+        <h3>Resultado: $</h3>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
