@@ -18,13 +18,13 @@
     <h1>Conversor de Monedas Nacional</h1>
     <div class="container">
         <h2>Pesos CLP</h2>
-        <input inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" maxlength="15">
+        <input inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" maxlength="15" id="quantity">
         <h3>Moneda a convertir:</h3>
         <select name="moneda" id="currency">
             <option>Dolar</option>
             <option>Euro</option>
         </select>
-        <button>Buscar</button>
+        <button id="searchButton">Buscar</button>
         <h3 id="result">Resultado: $</h3>
     </div>
     <script src="./assets/JS/script.js"></script>
