@@ -12,9 +12,20 @@ async function convertCurrency() {
     // The const currency is an object so if you console.log(currency) it displays an object whereas if you console.log(propt) it displays a property
     console.log(`El valor de ${propt} es ${currency.valor}`);
   }
+  if (currency.value == "Dolar" && input.value > 0) {
+    console.log("Yes");
+    const operation = input.value * data.dolar.valor;
+    console.log(operation);
+    result.innerHTML = `Resultado: $${operation}`;
+  } else {
+    alert("Introduce una cantidad valida");
+  }
+
   return data;
 }
+
 button.addEventListener("click", function () {
   console.log(input.value);
-  console.log(data);
+  convertCurrency();
+  console.log(currency.value);
 });
