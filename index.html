@@ -20,14 +20,14 @@
         <h2>Pesos CLP</h2>
         <input inputmode="numeric" oninput="this.value = this.value.replace(/\D+/g, '')" maxlength="15">
         <h3>Moneda a convertir:</h3>
-        <select name="moneda" id="moneda">
+        <select name="moneda" id="currency">
             <option>Dolar</option>
             <option>Euro</option>
         </select>
         <button>Buscar</button>
-        <h3>Resultado: $</h3>
+        <h3 id="result">Resultado: $</h3>
     </div>
-    <script src="script.js"></script>
+    <script src="./assets/JS/script.js"></script>
 </body>
 
 </html>
