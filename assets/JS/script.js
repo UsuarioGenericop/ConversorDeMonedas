@@ -55,3 +55,84 @@ button.addEventListener("click", async function () {
   await calculateTotal();
   console.log(currency.value);
 });
+
+// Update chart when currency selection changes
+currency.addEventListener("change", async function () {
+  const selectedCurrency = unCapitalizeFirstLetter(currency.value);
+  console.log("Currency changed to:", selectedCurrency);
+  await renderGrafica(selectedCurrency);
+});
+async function getAndCreateDataToChart(selectedCurrency = "uf") {
+  // Get historical data for the selected currency
+  const res = await fetch(`https://mindicador.cl/api/${selectedCurrency}`);
+  const data = await res.json();
+  console.log("Chart data:", data); // Debug log to see the structure
+
+  // Check if serie exists and has data
+  if (!data.serie || !Array.isArray(data.serie)) {
+    console.error("No historical data available for", selectedCurrency);
+    return { labels: [], datasets: [] };
+  }
+
+  // Get the last 10 values for the chart
+  const tenValues = data.serie.slice(0, 10);
+  const labels = tenValues.map((object) => {
+    return new Date(object.fecha).toLocaleDateString();
+  });
+  const values = tenValues.map((object) => {
+    return object.valor;
+  });
+
+  const datasets = [
+    {
+      label: `${selectedCurrency.toUpperCase()} (CLP)`,
+      borderColor: "rgb(255, 99, 132)",
+      data: values,
+    },
+  ];
+  return { labels, datasets };
+}
+let chartInstance = null; // Store chart instance for updates
+
+async function renderGrafica(selectedCurrency = "uf") {
+  try {
+    const chartData = await getAndCreateDataToChart(selectedCurrency);
+
+    // Check if we have data to display
+    if (!chartData.labels || chartData.labels.length === 0) {
+      console.warn("No chart data available");
+      return;
+    }
+
+    const config = {
+      type: "line",
+      data: chartData,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: false,
+          },
+        },
+      },
+    };
+
+    const myChart = document.getElementById("myChart");
+    if (myChart) {
+      myChart.style.backgroundColor = "white";
+
+      // Destroy existing chart if it exists
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      // Create new chart
+      chartInstance = new Chart(myChart, config);
+    } else {
+      console.error("Chart canvas element not found");
+    }
+  } catch (error) {
+    console.error("Error rendering chart:", error);
+  }
+}
+renderGrafica();
